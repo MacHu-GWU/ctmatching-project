@@ -13,9 +13,7 @@ For more information about Installation, Usage, API and full documentation:
 - **Documentation**: http://ctmatching-project.readthedocs.org/
 - **About author**: http://ctmatching-project.readthedocs.org/about.html
 
-Install:
-
-.. code-block:: console
+Install::
 
 	$ pip install ctmatching
 
@@ -23,9 +21,7 @@ Install:
 Minimal usage
 -------------
 
-We just select most similar sample from control for each treatment sample:
-
-.. code-block :: python
+We just select most similar sample from control for each treatment sample::
 
 	from __future__ import print_function
 	from ctmatching import psm
@@ -47,9 +43,7 @@ We just select most similar sample from control for each treatment sample:
 	>>> [ 8.  3.  8.] matches [[ 10.   0.   7.]]
 	>>> [ 2. -3.  4.] matches [[ 1.  4.  8.]]
 
-Want to set feature3 more important? Let's do stratified matching:
-
-.. code-block :: python
+Want to set feature3 more important? Let's do stratified matching::
 
 	selected_control, selected_control_each_treatment = psm(
 	    control, treatment, stratify_order=[[2], [0, 1]])
@@ -70,9 +64,7 @@ Sometimes we only want selected columns to use for matching. Sometimes we want s
 
 For description of all arguments, go here :func:`ctmatching.core.psm`
 
-A complicate example looks like: 
-
-.. code-block :: python
+A complicate example looks like::
 	
 	from __future__ import print_function
 	from ctmatching import psm, load_re78

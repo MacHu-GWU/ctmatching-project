@@ -20,10 +20,6 @@ About
 - Python3: Yes
     
 
-**Prerequisites**
-
-- None
-
 class, method, func, exception
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """
