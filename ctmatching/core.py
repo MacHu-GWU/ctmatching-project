@@ -299,7 +299,7 @@ def psm(control, treatment, use_col=None, stratify_order=None, independent=True,
 
 if __name__ == "__main__":
     import unittest
-    from testdata import load_re78
+    from dataset import load_re78
     
     def display_matching_result(control, treatment, selected_control_index_for_each_treatment):
         for treatment_sample, index in zip(treatment, selected_control_index_for_each_treatment):
