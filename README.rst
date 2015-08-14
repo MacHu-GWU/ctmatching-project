@@ -62,7 +62,7 @@ Advance Usage
 
 Sometimes we only want selected columns to use for matching. Sometimes we want search Minimal similar sample by feature1, with same feature1 value, then start considering feature2. We may need multiple matches. We may want every treatment sample to select different control samples.
 
-For description of all arguments, go here :func:`ctmatching.core.psm`
+For description of all arguments, go `here <http://ctmatching-project.readthedocs.org/py-modindex.html>`_
 
 A complicate example looks like::
 	
@@ -102,12 +102,12 @@ A complicate example looks like::
 
 Not too hard, right?
 
-Chinese Quick Doc[中文快速文档]
-=============================
+中文快速文档
+==========================================
 
 **Propensity score matching (PSM) 倾向评分匹配**
 
-PSM主要用于生物统计中。在生物统计中, 很多实验都要设置"对照组/控制组（control group）"和"实验组（treatment group）"。在一个精心设计的实验中, 对照组和实验组通常在除了实验所导致的结果部分, 都要保证其他情况尽量一致, 这样实验结果才有说服力。
+PSM主要用于生物统计中。在生物统计中, 很多实验都要设置``对照组/控制组（control group）``和``实验组（treatment group）``。在一个精心设计的实验中, 对照组和实验组通常在除了实验所导致的结果部分, 都要保证其他情况尽量一致, 这样实验结果才有说服力。
 
 例如我们研究X药品对A疾病的治疗效果, 如果我们选择100个病人, 他们的身体状况都比较相似, 给其中50个人吃药, 另外50个人不吃药。如果过了一个月对照组中的病人有30%身体恶化, 10%的状态不变, 10%的稍许好转。而实验组中的病人有30%都有好转, 那么我们大体上可以说明这个药是有效的。
 
