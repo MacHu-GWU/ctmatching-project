@@ -19,14 +19,7 @@ Table of Content
     Installing <install>
     Quick Start <quickstart>
     About <about>
-
-
-Indices and tables
-------------------
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+    API Reference <api>
 
 
 Copyright Notice
