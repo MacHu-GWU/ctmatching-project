@@ -1,0 +1,33 @@
+Welcome to control treatment matching algorithm's documentation!
+================================================================
+
+`Treatment and control group <https://en.wikipedia.org/wiki/Treatment_and_control_groups>`_ experiment is widely used in comparative experiments. For a big group of people having similar circumstance, if treatments are applied and we see it works, Bingo, we got what we want to prove now. Knock Knock! Welcome back to reality. In real worlds, **it is usually very difficult to find large amount of people having similar circumstance**. So what we do is only apply treatments to small amount of people, and then select similar people from public. Then we can start comparison.
+
+This, is control treatment matching.
+
+ctmatching is a ``stratified propensity score matching algorithm`` python implementation built on `numpy <http://www.numpy.org/>`_, `pandas <http://pandas.pydata.org/>`_, `sklearn <http://scikit-learn.org/stable/>`_. Thanks for standing on the shoulders of these giants.
+
+OK, let's rock!
+
+By the way, I have a chinese quick introduction here => `点我进入中文文档 <https://github.com/MacHu-GWU/ctmatching#chinese-quick-doc中文快速文档>`_
+
+Table of Content
+----------------
+
+.. toctree::
+   :maxdepth: 2
+
+    Installing <install>
+    Quick Start <quickstart>
+    About Author <author>
+    License <license>
+
+
+
+Indices and tables
+------------------
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+

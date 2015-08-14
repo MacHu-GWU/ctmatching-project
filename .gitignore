@@ -1,3 +1,10 @@
+# Developer setting
+*.pyc
+_source
+build
+ctmatching.egg-info
+dist
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
