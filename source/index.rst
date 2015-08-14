@@ -9,7 +9,6 @@ ctmatching is a ``stratified propensity score matching algorithm`` python implem
 
 OK, let's rock!
 
-By the way, I have a chinese quick introduction here => `点我进入中文文档 <https://github.com/MacHu-GWU/ctmatching#chinese-quick-doc中文快速文档>`_
 
 Table of Content
 ----------------

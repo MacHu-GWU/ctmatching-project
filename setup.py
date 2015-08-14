@@ -16,7 +16,7 @@ setup(
     long_description=LONG_DESCRIPTION,
     author = "Sanhe Hu",
     author_email = "husanhe@gmail.com",
-    url = "https://github.com/MacHu-GWU/ctmatching",
-    download_url = "https://github.com/MacHu-GWU/ctmatching/tarball/0.1",
+    url = "https://github.com/MacHu-GWU/ctmatching-project",
+    download_url = "https://github.com/MacHu-GWU/ctmatching-project/tarball/0.1",
     keywords = ["statistic", "math"],
 )

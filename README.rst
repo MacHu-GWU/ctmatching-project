@@ -1,10 +1,7 @@
-Welcome to control treatment matching algorithm's documentation!
-================================================================
-
 Introduction
 ------------
 
-`Treatment and control group <https://en.wikipedia.org/wiki/Treatment_and_control_groups>`_ experiment is widely used in comparative experiments. For a big group of people having similar circumstance, if treatments are applied and we see it works, Bingo, we got what we want to prove now. Knock Knock! Welcome back to reality. In real worlds, **it is usually very difficult to find large amount of people having similar circumstance**. So what we do is only apply treatments to small amount of people, and then select similar people from public. Then we can start comparison.
+The `Treatment and control group <https://en.wikipedia.org/wiki/Treatment_and_control_groups>`_ experiment is widely used in comparative experiments. For a big group of people having similar circumstance, if treatments are applied and we see it works, Bingo, we got what we want to prove now. Knock Knock! Welcome back to reality. In real worlds, **it is usually very difficult to find large amount of people having similar circumstance**. So what we do is only apply treatments to small amount of people, and then select similar people from public. Then we can start comparison.
 
 This, is control treatment matching.
 
@@ -15,6 +12,13 @@ For more information about Installation, Usage, API and full documentation:
 - **Download, Installation**: https://pypi.python.org/pypi/ctmatching
 - **Documentation**: http://ctmatching-project.readthedocs.org/
 - **About author**: http://ctmatching-project.readthedocs.org/about.html
+
+Install:
+
+.. code-block:: console
+
+	$ pip install ctmatching
+
 
 Minimal usage
 -------------
