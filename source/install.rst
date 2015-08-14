@@ -1,25 +1,32 @@
 ctmatching Installation
 =======================
-This part of the documentation covers the installation of ctmatching. The first step to using any software package is getting it properly installed.
 
+This part of the documentation covers the installation of ctmatching. The first step to use any software package is getting it properly installed.
+
+Since ctmatching is on PyPI, all you need is:
+
+.. code-block:: console
+
+	$ pip install ctmatching
+	
 
 Development Version
 -------------------
-Follow my `github repository <https://github.com/MacHu-GWU/ctmatching>`_ is always the best way to get lastest version.
+Follow my `github repository <https://github.com/MacHu-GWU/ctmatching-project>`_ is always the best way to get lastest version.
 
 
-Installation for Dummies
-------------------------
+Easy install on Windows
+-----------------------
 
-Install windtalker in windows is easy.
+Install ctmatching in windows is easy.
 
-First, go to `github repository <https://github.com/MacHu-GWU/ctmatching>`_ and download the zip.
+First, go to `github repository <https://github.com/MacHu-GWU/ctmatching-project>`_ and download the source.
 
-Second, open command line console:
+Second, open command line console, find the zzz_manual_install.py file, then do this:
 
-.. code-block :: bat
+.. code-block:: console
 
-	cd ctmatching\src\ctmatching
-	python zzz_manual_install.py
+	$ cd ctmatching-project\ctmatching
+	$ python zzz_manual_install.py
 
 the script can automatically find installed Python and install windtalker to it's site-packages

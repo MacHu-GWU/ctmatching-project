@@ -1,8 +1,6 @@
 Welcome to control treatment matching algorithm's documentation!
 ================================================================
 
-Documentation: `click here. <http://ctmatching.readthedocs.org/>`_
-
 Introduction
 ------------
 
@@ -12,36 +10,11 @@ This, is control treatment matching.
 
 ctmatching is a ``stratified propensity score matching algorithm`` python implementation built on `numpy <http://www.numpy.org/>`_, `pandas <http://pandas.pydata.org/>`_, `sklearn <http://scikit-learn.org/stable/>`_. Thanks for standing on the shoulders of these giants.
 
+For more information about Installation, Usage, API and full documentation:
 
-ctmatching Installation
-=======================
-This part of the documentation covers the installation of ctmatching. The first step to using any software package is getting it properly installed.
-
-
-Development Version
--------------------
-Follow my `github repository <https://github.com/MacHu-GWU/ctmatching>`_ is always the best way to get lastest version.
-
-
-Installation for Dummies
-------------------------
-
-Install windtalker in windows is easy.
-
-First, go to `github repository <https://github.com/MacHu-GWU/ctmatching>`_ and download the zip.
-
-Second, open command line console:
-
-.. code-block :: bat
-
-	cd ctmatching\src\ctmatching
-	python zzz_manual_install.py
-
-the script can automatically find installed Python and install windtalker to it's site-packages
-
-
-Quick Start
-===========
+- **Download, Installation**: https://pypi.python.org/pypi/ctmatching
+- **Documentation**: http://ctmatching-project.readthedocs.org/
+- **About author**: http://ctmatching-project.readthedocs.org/about.html
 
 Minimal usage
 -------------
@@ -66,6 +39,7 @@ We just select most similar sample from control for each treatment sample:
 		selected_control_each_treatment):
 	    print("%s matches %s" % (treatment_sample, control[index]))
 
+	====== run the script above ======
 	>>> [ 8.  3.  8.] matches [[ 10.   0.   7.]]
 	>>> [ 2. -3.  4.] matches [[ 1.  4.  8.]]
 
@@ -80,6 +54,7 @@ Want to set feature3 more important? Let's do stratified matching:
 		selected_control_each_treatment):
 	    print("%s matches %s" % (treatment_sample, control[index]))
 
+	====== run the script above ======
 	>>> [ 8.  3.  8.] matches [[ 1.  4.  8.]]
 	>>> [ 2. -3.  4.] matches [[ 10.   0.   7.]]
 
@@ -89,7 +64,7 @@ Advance Usage
 
 Sometimes we only want selected columns to use for matching. Sometimes we want search Minimal similar sample by feature1, with same feature1 value, then start considering feature2. We may need multiple matches. We may want every treatment sample to select different control samples.
 
-For description of all arguments, go here `Arguments`_.
+For description of all arguments, go here :func:`ctmatching.core.psm`
 
 A complicate example looks like: 
 
@@ -117,6 +92,7 @@ A complicate example looks like:
 	    for sample in control[index].tolist():
 	        print(sample)
 
+	====== run the script above ======
 	>>> =======================================
 	>>> [1.0, 37.0, 11.0, 1.0, 0.0, 1.0, 1.0, 0.0, 0.0, 9930.046]
 	>>> matches
@@ -130,79 +106,8 @@ A complicate example looks like:
 
 Not too hard, right?
 
-Arguments
-~~~~~~~~~
-
-**control**: control group sample data, m1 x n matrix, #m1 samples, n dimension vector
-
-example: ::
-
-	[[c1_1, c1_2, ..., c1_n],
-	 [c2_1, c2_2, ..., c2_n],
-	 ...,
-	 [cm1_1, cm1_2, ..., cm1_n],]
-         
-
-**treatment**: control group sample data, m2 x n matrix, #m2 samples, n dimension vector
-
-example: similar to control
-
-
-**use_col**: list of column index, default None (use all)
-
-example: ::
-
-    [0, 1, 4, 6, 7, 9] -> use first, second, fifth, ... columns
-
-
-**stratify_order**: list of list, default None (use normal nearest neighbor)
-
-example: ::
-
-    for input data has 6 columns
-    [[0], [1, 2, 3], [4], [5]] -> first feature has highest priority, [second, third,
-    forth] features' has second highest priority by mean of euclidean distance, ... 
-
-
-**k**: int, default 1. number of samples selected from control group
-
-
-Returns
-~~~~~~~
-
-**selected_control_index**: selected control sample index
-
-example (k=3): ::
-
-    m2*k-length array: [7, 120, 43, 54, 12, 98, ..., 71, 37, 14]
-
-
-**selected_control_index_for_each_treatment**: selected control sample index for each treatment sample
-   
-example (k=3): ::
-
-    [[7, 120, 43],
-     [54, 12, 98],
-     ...,
-     [71, 37, 14],] -> for treatment[0], we have control[7], control[120], control[43]
-     matched by mean of stratification.
-
-
-License
-=======
-
-ctmatching is an open source project by Sanhe Hu.
-
-Copyright (c) 2015 Sanhe Hu.
-
-The MIT License (MIT)
-
-Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
-
-THE SOFTWARE IS PROVIDED “AS IS” AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-
 Chinese Quick Doc[中文快速文档]
-===============================
+=============================
 
 **Propensity score matching (PSM) 倾向评分匹配**
 

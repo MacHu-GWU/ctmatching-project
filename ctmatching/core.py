@@ -2,53 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """
-control, treatment matching algorithm. (Propensity score matching)
+Control, treatment matching algorithm main module. (Propensity score matching)         
 
-control - treatment matching algorithm procedure:
-
-input data
-~~~~~~~~~~
-
-control: control group sample data, m1 x n matrix, #m1 samples, n dimension vector
-    example:
-        [[c1_1, c1_2, ..., c1_n],
-         [c2_1, c2_2, ..., c2_n],
-         ...,
-         [cm1_1, cm1_2, ..., cm1_n],]
-         
-treatment: control group sample data, m2 x n matrix, #m2 samples, n dimension vector
-    example:
-        similar to control
-
-use_col: list of column index, default None (use all)
-    example:
-        [0, 1, 4, 6, 7, 9] -> use first, second, fifth, ... columns
-
-stratify_order: list of list, default None (use normal nearest neighbor)
-    example:
-        for input data has 6 columns
-        [[0], [1, 2, 3], [4], [5]] -> first feature has highest priority, [second, third,
-        forth] features' has second highest priority by mean of euclidean distance, ... 
-
-k: int, default 1. number of samples selected from control group
-
-
-output data
-~~~~~~~~~~~
-
-selected_control_index: selected control sample index
-    example (k=3):
-        m2*k-length array: [7, 120, 43, 54, 12, 98, ..., 71, 37, 14]
-
-selected_control_index_for_each_treatment: selected control sample index for each 
-    treatment sample
-    example (k=3):
-        [[7, 120, 43],
-         [54, 12, 98],
-         ...,
-         [71, 37, 14],] -> for treatment[0], we have control[7], control[120], control[43]
-         matched by mean of stratification.
-         
 About
 ~~~~~
 
@@ -82,7 +37,7 @@ from sklearn.neighbors import NearestNeighbors
 import numpy as np, pandas as pd
 
 def normalize(train, test):
-    """pre-processing, normalize data by eliminating mean and variance
+    """Pre-processing, normalize data by eliminating mean and variance.
     """
     scaler = preprocessing.StandardScaler().fit(train) # calculate mean and variance
     train = scaler.transform(train) # standardize train
@@ -90,13 +45,13 @@ def normalize(train, test):
     return train, test
 
 def dist(X, Y):
-    """calculate X, Y distance matrix
+    """Calculate X, Y distance matrix.
     """
     distance_calculator = DistanceMetric.get_metric("euclidean")
     return distance_calculator.pairwise(X, Y)
 
 def exam_input(control, treatment, stratify_order=None):
-    """exam input argument
+    """Exam input argument.
     """
     try:
         control_sample = control[0]
@@ -115,33 +70,40 @@ def exam_input(control, treatment, stratify_order=None):
                 for index in chunk:
                     column_index.add(index)
             if column_index != set(range(len(control_sample))):
-                raise InputError("stratify_order syntax error, please read doc for more info.")
+                raise InputError(
+                "stratify_order syntax error, please read doc for more info.")
         except:
-            raise InputError("stratify_order syntax error, please read doc for more info.")
+            raise InputError(
+                "stratify_order syntax error, please read doc for more info.")
 
 ############
 # Matching #
 ############
 
 def stratified_matching(control, treatment, stratify_order):
-    """
-    procedure
-    ---------
-        control = 1000 * 5
-        treatment = 100 * 5
-        stratify_order = [[0], [1,2,3], [4]]
-        
-        1. construct 3 distance matrix for 3 stratify rules, each matrix size is 100 * 1000
-            - select first column of treatment
-            - select first column of control
-            - compute distance matrix
-            - repeat this over three order
-        
-        2. construct a 1000 * 3 matrix, each column is the distance array against control
-            then sort them by first column, then second column, finally third column. now
-            first row index should be the nearest sample in control group by mean of 
-            stratification. append the row index to "indices" matrix.
+    """Calculate the order of matched control samples. Conponent function of 
+    :func:`psm`. 
     
+    Here's how it's done.
+    
+    ::
+    
+        control = 1000 * 5 (1000 samples, 5-dimension vector)
+        treatment = 100 * 5 (100 samples, 5-dimension vector)
+        stratify_order = [[0], [1,2,3], [4]]
+    
+    1. construct 3 distance matrix for 3 stratify rules, each matrix size is 
+    100 * 1000
+    
+        - select first column of treatment
+        - select first column of control
+        - compute distance matrix
+        - repeat this over three order
+    
+    2. construct a 1000 * 3 matrix, each column is the distance array against 
+    control then sort them by first column, then second column, finally third 
+    column. now first row index should be the nearest sample in control group 
+    by mean of stratification. append the row index to "indices" matrix.
     """
     exam_input(control, treatment, stratify_order)
     treatment_std, control_std = normalize(treatment, control)
@@ -163,7 +125,8 @@ def stratified_matching(control, treatment, stratify_order):
     return np.array(indices)
 
 def non_stratified_matching(control, treatment):
-    """simply calculate knn index for each treatment sample
+    """Simply calculate knn index for each treatment sample. Conponent function 
+    of :func:`psm`. 
     """
     exam_input(control, treatment)
     treatment_std, control_std = normalize(treatment, control)
@@ -177,18 +140,25 @@ def non_stratified_matching(control, treatment):
 #############
 
 def non_repeat_index_matching(indices, k=1):
-    """all treatment samples match against different samples from control group
-    for example, for treatment_sample1, treatment_sample2, they share the same nearest neighbor
-    train_sample25, but only the treatment_sample1 can match it, treatment_sample2 can only
-    choose the second nearest sample.
+    """All treatment samples match against different samples from control group.
+    Conponent function of :func:`psm`.
+    
+    For example::
+    
+        treatment_sample1 matches control_1, control_25, control_30
+        treatment_sample2 matches control_2, control_25, control_34
+    
+    Because treatment_sample1 already took control_25, so treatment_sample2 has
+    to take control2 and control_34 (second nearest, third nearest).
     """
     num_of_control = len(indices[0])
     num_of_treatment = len(indices)
     
     if k * num_of_treatment > num_of_control:
-        raise NotEnoughControlSampleError(("There's no enough samples in control group to "
-                                           "perform non repeat matching. Use independent "
-                                           "matching instead."))
+        raise NotEnoughControlSampleError(
+            ("There's no enough samples in control group to "
+             "perform non repeat matching. Use independent "
+             "matching instead."))
     
     
     selected_control_index = OrderedSet(list()) # initial all selected control group sample indices
@@ -211,8 +181,11 @@ def non_repeat_index_matching(indices, k=1):
     return selected_control_index, selected_control_index_for_each_treatment
 
 def independent_index_matching(indices, k=1):
-    """each treatment_sample match against to first k nearest neighbor in control group.
-    matched sample may repeat.
+    """Each treatment_sample match against to first k nearest neighbor 
+    in control group. Multiple treatment sample may match the same control 
+    sample.
+    
+    Conponent function of :func:`psm`. 
     """
     selected_control_index_for_each_treatment = indices[:, list(range(k))]
     selected_control_index = list()
@@ -224,7 +197,87 @@ def independent_index_matching(indices, k=1):
     return selected_control_index, selected_control_index_for_each_treatment
 
 def psm(control, treatment, use_col=None, stratify_order=None, independent=True, k=1):
-    """main function of propensity score matching.
+    """Propensity score matching main function.
+    
+    If you want to know the inside of the psm algorithm, check 
+    :func:`stratified_matching`, :func:`non_stratified_matching`,
+    :func:`non_repeat_index_matching`, :func:`independent_index_matching`.
+    otherwise, just read the parameters' definition.
+    
+    Suppose we have m1 control samples, m2 treatment samples. Sample is 
+    n-dimension vector.
+    
+    :param control: control group sample data, m1 x n matrix. Example:
+    
+    .. code-block:: python
+    
+        [[c1_1, c1_2, ..., c1_n], # c means control
+         [c2_1, c2_2, ..., c2_n],
+         ...,
+         [cm1_1, cm1_2, ..., cm1_n],]
+         
+    :type control: numpy.ndarray
+    :param treatment: control group sample data, m2 x n matrix. Example:
+    
+    .. code-block:: python
+    
+        [[t1_1, t1_2, ..., t1_n], # t means treatment
+         [t2_1, t2_2, ..., t2_n],
+         ...,
+         [tm1_1, tm1_2, ..., tm1_n],]
+         
+    :type treatment: numpy.ndarray
+    :param use_col: (default None, use all) list of column index. Example:
+    
+    .. code-block:: python
+    
+        [0, 1, 4, 6, 7, 9] # use first, second, fifth, ... columns
+        
+    :type use_col: list or numpy.ndarray
+    
+    :param stratify_order: (default None, use normal nearest neighbor) 
+      list of list. Example:
+    
+    .. code-block:: python
+    
+        # for input data has 6 columns
+        # first feature has highest priority
+        # [second, third, forth] features' has second highest priority by mean of euclidean distance
+        # fifth feature has third priority, ...
+        [[0], [1, 2, 3], [4], [5]]
+        
+    :type stratify_order: list of list
+    
+    :param independent: (default True)
+    :type independent: boolean
+    
+    :param k: (default 1) Number of samples selected from control group.
+    :type k: int
+    
+    :return: selected_control_index, selected_control_index_for_each_treatment
+    :rtype: tuple
+    
+    selected_control_index: selected control sample index. Example (k = 3):
+    
+    .. code-block:: python
+        
+        (m2 * k)-length array: [7, 120, 43, 54, 12, 98, ..., 71, 37, 14]
+    
+    selected_control_index_for_each_treatment: selected control sample index for 
+    each treatment sample. Example (k = 3):
+     
+    .. code-block:: python
+        
+        # for treatment[0], we have control[7], control[120], control[43]
+        # matched by mean of stratification.
+        [[7, 120, 43],
+         [54, 12, 98],
+         ...,
+         [71, 37, 14],]
+         
+    :raises InputError: if the input parameters are not legal.
+    :raises NotEnoughControlSampleError: if don't have sufficient data for 
+      independent index matching.
     """
     if not isinstance(control, np.ndarray):
         control = np.array(control)

@@ -19,9 +19,7 @@ Table of Content
 
     Installing <install>
     Quick Start <quickstart>
-    About Author <author>
-    License <license>
-
+    About <about>
 
 
 Indices and tables
@@ -31,3 +29,7 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+
+Copyright Notice
+----------------
+windtalker is an open source project by Sanhe Hu

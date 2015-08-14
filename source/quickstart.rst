@@ -24,6 +24,7 @@ We just select most similar sample from control for each treatment sample:
 		selected_control_each_treatment):
 	    print("%s matches %s" % (treatment_sample, control[index]))
 
+	====== run the script above ======
 	>>> [ 8.  3.  8.] matches [[ 10.   0.   7.]]
 	>>> [ 2. -3.  4.] matches [[ 1.  4.  8.]]
 
@@ -38,6 +39,7 @@ Want to set feature3 more important? Let's do stratified matching:
 		selected_control_each_treatment):
 	    print("%s matches %s" % (treatment_sample, control[index]))
 
+	====== run the script above ======
 	>>> [ 8.  3.  8.] matches [[ 1.  4.  8.]]
 	>>> [ 2. -3.  4.] matches [[ 10.   0.   7.]]
 
@@ -47,7 +49,7 @@ Advance Usage
 
 Sometimes we only want selected columns to use for matching. Sometimes we want search Minimal similar sample by feature1, with same feature1 value, then start considering feature2. We may need multiple matches. We may want every treatment sample to select different control samples.
 
-For description of all arguments, go here `Arguments`_.
+For description of all arguments, go here :func:`ctmatching.core.psm`
 
 A complicate example looks like: 
 
@@ -75,6 +77,7 @@ A complicate example looks like:
 	    for sample in control[index].tolist():
 	        print(sample)
 
+	====== run the script above ======
 	>>> =======================================
 	>>> [1.0, 37.0, 11.0, 1.0, 0.0, 1.0, 1.0, 0.0, 0.0, 9930.046]
 	>>> matches
@@ -87,60 +90,3 @@ A complicate example looks like:
 	>>> [0.0, 19.0, 9.0, 0.0, 1.0, 0.0, 1.0, 1822.118, 0.0, 3372.172]
 
 Not too hard, right?
-
-Arguments
-~~~~~~~~~
-
-**control**: control group sample data, m1 x n matrix, #m1 samples, n dimension vector
-
-example: ::
-
-	[[c1_1, c1_2, ..., c1_n],
-	 [c2_1, c2_2, ..., c2_n],
-	 ...,
-	 [cm1_1, cm1_2, ..., cm1_n],]
-         
-
-**treatment**: control group sample data, m2 x n matrix, #m2 samples, n dimension vector
-
-example: similar to control
-
-
-**use_col**: list of column index, default None (use all)
-
-example: ::
-
-    [0, 1, 4, 6, 7, 9] -> use first, second, fifth, ... columns
-
-
-**stratify_order**: list of list, default None (use normal nearest neighbor)
-
-example: ::
-
-    for input data has 6 columns
-    [[0], [1, 2, 3], [4], [5]] -> first feature has highest priority, [second, third,
-    forth] features' has second highest priority by mean of euclidean distance, ... 
-
-
-**k**: int, default 1. number of samples selected from control group
-
-
-Returns
-~~~~~~~
-
-**selected_control_index**: selected control sample index
-
-example (k=3): ::
-
-    m2*k-length array: [7, 120, 43, 54, 12, 98, ..., 71, 37, 14]
-
-
-**selected_control_index_for_each_treatment**: selected control sample index for each treatment sample
-   
-example (k=3): ::
-
-    [[7, 120, 43],
-     [54, 12, 98],
-     ...,
-     [71, 37, 14],] -> for treatment[0], we have control[7], control[120], control[43]
-     matched by mean of stratification.

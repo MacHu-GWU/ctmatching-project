@@ -8,15 +8,15 @@ with open("README.rst", "rb") as f:
 VERSION = __import__("ctmatching").__version__
 
 setup(
-  name = "ctmatching",
-  packages = find_packages(),
-  package_data = {"ctmatching": ["testdata/re78.txt"]},
-  version = VERSION,
-  description = "Treatment group, control group matching algorithm high level python implementation.",
-  long_description=LONG_DESCRIPTION,
-  author = "Sanhe Hu",
-  author_email = "husanhe@gmail.com",
-  url = "https://github.com/MacHu-GWU/ctmatching",
-  download_url = "https://github.com/MacHu-GWU/ctmatching/tarball/0.2",
-  keywords = ["statistic", "match"],
+    name = "ctmatching",
+    packages = find_packages(),
+    package_data = {"ctmatching": ["testdata/re78.txt"]},
+    version = VERSION,
+    description = "Treatment group, control group matching algorithm high level python implementation.",
+    long_description=LONG_DESCRIPTION,
+    author = "Sanhe Hu",
+    author_email = "husanhe@gmail.com",
+    url = "https://github.com/MacHu-GWU/ctmatching",
+    download_url = "https://github.com/MacHu-GWU/ctmatching/tarball/0.1",
+    keywords = ["statistic", "math"],
 )
