@@ -11,7 +11,7 @@ For more information about Installation, Usage, API and full documentation:
 
 - **Download, Installation**: https://pypi.python.org/pypi/ctmatching
 - **Source code**: https://github.com/MacHu-GWU/ctmatching-project
-- **Documentation**: http://ctmatching-project.readthedocs.org/
+- **Documentation**: http://sanherabbit.com.s3-website-us-east-1.amazonaws.com/ctmatching
 - **About author**: http://ctmatching-project.readthedocs.org/about.html
 
 
