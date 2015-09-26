@@ -1,9 +1,9 @@
 # Developer setting
+
 *.pyc
-_source
 build
-ctmatching.egg-info
 dist
+ctmatching.egg-info
 
 # Windows image file caches
 Thumbs.db

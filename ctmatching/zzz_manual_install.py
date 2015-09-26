@@ -3,7 +3,7 @@
 
 """
 Install your own package in one seconds! (Windows System Only!)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Put this script in your package directory, for example::
 
@@ -36,7 +36,7 @@ setup.py and build the distribution by yourself. Read the following instruction:
 
 **Warning**: with python2, the project directory cannot have non-ascil char.
 
-------
+-------------------------------------------------------------------------------
 
 **中文文档**
 
@@ -72,7 +72,7 @@ package的安装包。这一部分可以参考:
 注: 项目目录在python2中不允许有中文路径。
 
 About
-~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Copyright (c) 2015 by Sanhe Hu**
 
@@ -92,7 +92,7 @@ About
 - None
 
 class, method, func, exception
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """
 
 from __future__ import print_function, unicode_literals

@@ -4,29 +4,22 @@
 """
 Control, treatment matching algorithm main module. (Propensity score matching)         
 
-About
-~~~~~
-
-**Copyright (c) 2015 by Sanhe Hu**
-
-- Author: Sanhe Hu
-- Email: husanhe@gmail.com
-- Lisence: MIT
-
-
-**Compatibility**
-
-- Python2: Yes
-- Python3: Yes
-    
 
 class, method, func, exception
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """
 
 from __future__ import print_function
-from ctmatching.exc import InputError, NotEnoughControlSampleError
-from ctmatching.orderedset import OrderedSet
+try:
+    from ctmatching.exc import InputError, NotEnoughControlSampleError
+except:
+    from .exc import InputError, NotEnoughControlSampleError
+
+try:
+    from ctmatching.orderedset import OrderedSet
+except:
+    from .orderedset import OrderedSet
+
 from sklearn import preprocessing
 from sklearn.neighbors import DistanceMetric
 from sklearn.neighbors import NearestNeighbors
@@ -156,7 +149,6 @@ def non_repeat_index_matching(indices, k=1):
              "perform non repeat matching. Use independent "
              "matching instead."))
     
-    
     selected_control_index = OrderedSet(list()) # initial all selected control group sample indices
     selected_control_index_for_each_treatment = list()
     for indice in indices: # for indice that tr1 -> [4, 11, 6, 7, ...]
@@ -203,9 +195,7 @@ def psm(control, treatment, use_col=None, stratify_order=None, independent=True,
     Suppose we have m1 control samples, m2 treatment samples. Sample is 
     n-dimension vector.
     
-    :param control: control group sample data, m1 x n matrix. Example:
-    
-    .. code-block:: python
+    :param control: control group sample data, m1 x n matrix. Example::
     
         [[c1_1, c1_2, ..., c1_n], # c means control
          [c2_1, c2_2, ..., c2_n],
@@ -213,9 +203,7 @@ def psm(control, treatment, use_col=None, stratify_order=None, independent=True,
          [cm1_1, cm1_2, ..., cm1_n],]
          
     :type control: numpy.ndarray
-    :param treatment: control group sample data, m2 x n matrix. Example:
-    
-    .. code-block:: python
+    :param treatment: control group sample data, m2 x n matrix. Example::
     
         [[t1_1, t1_2, ..., t1_n], # t means treatment
          [t2_1, t2_2, ..., t2_n],
@@ -223,18 +211,14 @@ def psm(control, treatment, use_col=None, stratify_order=None, independent=True,
          [tm1_1, tm1_2, ..., tm1_n],]
          
     :type treatment: numpy.ndarray
-    :param use_col: (default None, use all) list of column index. Example:
-    
-    .. code-block:: python
+    :param use_col: (default None, use all) list of column index. Example::
     
         [0, 1, 4, 6, 7, 9] # use first, second, fifth, ... columns
         
     :type use_col: list or numpy.ndarray
     
     :param stratify_order: (default None, use normal nearest neighbor) 
-      list of list. Example:
-    
-    .. code-block:: python
+      list of list. Example::
     
         # for input data has 6 columns
         # first feature has highest priority
@@ -253,16 +237,12 @@ def psm(control, treatment, use_col=None, stratify_order=None, independent=True,
     :return: selected_control_index, selected_control_index_for_each_treatment
     :rtype: tuple
     
-    selected_control_index: selected control sample index. Example (k = 3):
-    
-    .. code-block:: python
+    selected_control_index: selected control sample index. Example (k = 3)::
         
         (m2 * k)-length array: [7, 120, 43, 54, 12, 98, ..., 71, 37, 14]
     
     selected_control_index_for_each_treatment: selected control sample index for 
-    each treatment sample. Example (k = 3):
-     
-    .. code-block:: python
+    each treatment sample. Example (k = 3)::
         
         # for treatment[0], we have control[7], control[120], control[43]
         # matched by mean of stratification.
@@ -312,14 +292,14 @@ if __name__ == "__main__":
     class ControlTreatmentMatchingUnittest(unittest.TestCase):
         def test_exam_input(self):
             control, treatment = load_re78()
-            control, treatment = control[:, list(range(1, 7))], treatment[:, list(range(1, 7))]
+            control, treatment = control[:, list(range(2, 8))], treatment[:, list(range(2, 8))]
             stratify_order = [[1],[3],[0,2,4],[5]]
             exam_input(control, treatment, stratify_order) # pass exam
         
         
         def test_stratified_matching_and_none_repeat_index_matching(self):
             control, treatment = load_re78()
-            control, treatment = control[:, list(range(1, 7))], treatment[:, list(range(1, 7))]
+            control, treatment = control[:, list(range(2, 8))], treatment[:, list(range(2, 8))]
             stratify_order = [[1],[3],[0,2,4],[5]]
             
             indices = stratified_matching(control, treatment, stratify_order)
@@ -330,7 +310,7 @@ if __name__ == "__main__":
         
         def test_non_stratified_matching_and_independent_index_matching(self):
             control, treatment = load_re78()
-            control, treatment = control[:, list(range(1, 7))], treatment[:, list(range(1, 7))]
+            control, treatment = control[:, list(range(2, 8))], treatment[:, list(range(2, 8))]
             indices = non_stratified_matching(control, treatment)
             selected_control_index, selected_control_index_for_each_treatment = independent_index_matching(
                                                                                 indices, 1)

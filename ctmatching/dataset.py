@@ -2,36 +2,58 @@
 # -*- coding: utf-8 -*-
 
 """
-ctmatching algoritm example data set loader.
+``ctmatching`` algoritm example data set loader.
+
+About re78 data:
+
+- 1978 US people earning data by race, age, gender, educations.
+- 429 control samples, 185 treatment samples. Each sample has 10 properties.
+  except ID
+
+Full description of this data: http://users.nber.org/~rdehejia/data/nswdata2.html
 """
 
-import pandas as pd
+import numpy as np
+import site
 import os
 
 def load_re78():
-    """1978 US people earning data by race, age, gender, educations..
-    
-    429 control samples, 185 treatment samples. Each sample has 10 properties.
+    """re78 data loader
     
     Usage::
     
         >>> from ctmatching import load_re78
-        >>> control, treatment = load_re78()
-        >>> control.shape
-        (429, 10)
-        >>> treatment.shape
-        (185, 10)
-        
-    description of this data: http://users.nber.org/~rdehejia/data/nswdata2.html
+        >>> control, treat = load_re78()
+        >>> len(control)
+        429
+        >>> len(treat)
+        185
     """
-    dirname = os.path.dirname(__file__)
-    abspath = os.path.join(dirname, r"testdata\re78.txt")
-    data = pd.read_csv(abspath, index_col=0)
-    control = data[data["treat"] == 0].values
-    treatment = data[data["treat"] == 1].values
-    return control, treatment
+    abspath = os.path.join(
+        site.getsitepackages()[1], "ctmatching", "testdata", "re78.txt")    
+
+    with open(abspath, "rb") as f:
+        lines = f.read().decode("utf-8").split("\n")
+        
+    columns = lines[0].strip().split(",")
+
+    control = list()
+    treat = list()
+
+    for line in lines[1:]:
+        record = line.strip().split(",")
+
+        for i in [1, 2, 3, 4, 5, 6, 7]:
+            record[i] = int(record[i])
+        for i in [8, 9, 10]:
+            record[i] = float(record[i])
+        
+        if record[1]:
+            treat.append(record)
+        else:
+            control.append(record)
+    
+    return np.array(control), np.array(treat)
     
 if __name__ == "__main__":
-    control, treatment = load_re78()
-    print(control.shape)
-    print(treatment.shape)
+    control, treat = load_re78()
