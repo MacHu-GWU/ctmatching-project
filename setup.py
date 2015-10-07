@@ -55,13 +55,13 @@ from datetime import datetime
 import os
 
 GITHUB_ACCOUNT = "MacHu-GWU" # your GitHub account name
-RELEASE_TAG = "2015-09-25" # the GitHub release tag
+RELEASE_TAG = "2015-10-06" # the GitHub release tag
 NAME = "ctmatching" # name your package
 
 VERSION = __import__(NAME).__version__
 PACKAGES = [NAME] + ["%s.%s" % (NAME, i) for i in find_packages(NAME)]
 PACKAGE_DATA = {
-    "ctmatching": ["*.txt"],
+    "ctmatching": ["testdata/*.txt"],
 }
 SHORT_DESCRIPTION = __import__(NAME).__short_description__ # GitHub Short Description
 AUTHOR = "Sanhe Hu"

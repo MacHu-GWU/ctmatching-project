@@ -9,11 +9,11 @@ ctmatching is a ``stratified propensity score matching algorithm`` python implem
 
 For more information about Installation, Usage, API and full documentation:
 
-- **Download, Installation**: https://pypi.python.org/pypi/ctmatching
-- **Source code**: https://github.com/MacHu-GWU/ctmatching-project
-- **Documentation**: http://sanherabbit.com.s3-website-us-east-1.amazonaws.com/ctmatching
-- **About author**: http://ctmatching-project.readthedocs.org/about.html
-
+- `Download, Installation <https://pypi.python.org/pypi/ctmatching>`_
+- `Source code <https://github.com/MacHu-GWU/ctmatching-project>`_
+- `Documentation <http://www.wbh-doc.com.s3.amazonaws.com/ctmatching/index.html>`_
+- `About author <http://ctmatching-project.readthedocs.org/about.html>`_
+- `Bug and Issue <https://github.com/MacHu-GWU/ctmatching-project/issues>`_
 
 Download and Install
 --------------------------------------------------------------------------------
