@@ -94,6 +94,9 @@ CLASSIFIERS = [
     "Programming Language :: Python :: 3.3",
     "Programming Language :: Python :: 3.4",
 ]
+
+with open("requirements.txt", "rb") as f:
+    REQUIRES = [i.strip() for i in f.read().decode("utf-8").split("\n")]
     
 setup(
     name = NAME,
