@@ -112,4 +112,5 @@ setup(
     classifiers = CLASSIFIERS,
     platforms = PLATFORMS,
     license = LICENSE,
+    install_requires = REQUIRES,
 )
