@@ -4,10 +4,9 @@ python:
   - "3.3"
   - "3.4"
   - "3.5"
+before_install:
+  - sudo apt-get install python-numpy python-scipy python-pandas
 install:
-  - pip install numpy
-  - pip install scipy
-  - pip install pandas
   - pip install scikit-learn
   - pip install . # Install it self
 script: py.test
