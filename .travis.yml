@@ -7,6 +7,9 @@ python:
 before_install:
   - sudo apt-get install python-numpy python-scipy python-pandas
 install:
+  - pip install numpy
+  - pip install pandas
+  - pip install scipy
   - pip install scikit-learn
   - pip install . # Install it self
 script: py.test
