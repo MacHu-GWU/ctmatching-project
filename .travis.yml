@@ -5,5 +5,9 @@ python:
   - "3.4"
   - "3.5"
 install:
+  - pip install numpy
+  - pip install scipy
+  - pip install pandas
+  - pip install scikit-learn
   - pip install . # Install it self
 script: py.test
