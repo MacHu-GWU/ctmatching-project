@@ -15,9 +15,8 @@ If this link is not available, try this:
 https://github.com/MacHu-GWU/ctmatching-project/blob/master/ctmatching/testdata/re78-readme.html
 """
 
-import numpy as np
-import site
 import os
+import numpy as np
 
 
 def load_re78():
@@ -32,8 +31,7 @@ def load_re78():
         >>> len(treat)
         185
     """
-    abspath = os.path.join(
-        site.getsitepackages()[1], "ctmatching", "testdata", "re78.txt")
+    abspath = os.path.join(__file__.replace("dataset.py", "testdata"), "re78.txt")
 
     with open(abspath, "rb") as f:
         lines = f.read().decode("utf-8").split("\n")
