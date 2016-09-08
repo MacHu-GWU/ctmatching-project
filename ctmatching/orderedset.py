@@ -4,7 +4,6 @@
 """
 Module description
 ~~~~~~~~~~~~~~~~~~
-
 This module provide a pure python OrderedSet data type implementation.
 inspired by http://code.activestate.com/recipes/576694/
 
@@ -20,7 +19,6 @@ orderedset: a Cython implementation. https://pypi.python.org/pypi/orderedset
 
 Usage examples
 ~~~~~~~~~~~~~~
-
 Add, discard, pop::
 
     >>> s = OrderedSet()
@@ -52,9 +50,9 @@ Union, intersect, difference::
     >>> s - t # s different t
     OrderedSet(['r', 'd'])
 
+
 About
 ~~~~~
-
 **Compatibility**
 
 - Python2: Yes
@@ -65,6 +63,7 @@ About
 
 - None
 
+
 class, method, func, exception
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """
@@ -72,12 +71,15 @@ class, method, func, exception
 from __future__ import print_function
 import collections
 
+
 class OrderedSet(collections.MutableSet):
+
     """A light weight OrderedSet data type pure Python implementation.
     """
+
     def __init__(self, iterable=None):
-        self.end = end = [] 
-        end += [None, end, end] # sentinel node for doubly linked list
+        self.end = end = []
+        end += [None, end, end]  # sentinel node for doubly linked list
         self.map = {}           # key --> [key, prev, next]
         if iterable is not None:
             self |= iterable
@@ -90,18 +92,18 @@ class OrderedSet(collections.MutableSet):
 
     def add(self, key):
         """Add an item to the OrderedSet.
-        
+
         Usage::
-        
+
             >>> s = OrderedSet()
             >>> s.add(1)
             >>> s.add(2)
             >>> s.add(3)
             >>> s
             OrderedSet([1, 2, 3])
-            
+
         **中文文档**
-        
+
         添加一个元素, 如果该元素已经存在, 则不会有任何作用。
         """
         if key not in self.map:
@@ -113,17 +115,17 @@ class OrderedSet(collections.MutableSet):
         """Remove a item from its member if it is a member.
 
         Usage::
-        
+
             >>> s = OrderedSet([1, 2, 3])
             >>> s.discard(2)
             >>> s
             OrderedSet([1, 3])
-            
+
         **中文文档**
-        
+
         从有序集合中删除一个元素, 同时保持集合依然有序。
         """
-        if key in self.map:        
+        if key in self.map:
             key, prev, next_item = self.map.pop(key)
             prev[2] = next_item
             next_item[1] = prev
@@ -144,17 +146,17 @@ class OrderedSet(collections.MutableSet):
 
     def pop(self, last=True):
         """Remove and returns the last added item.
-    
+
         Usage::
-        
+
             >>> s = OrderedSet([1, 2, 3])
             >>> s.pop()
             3
             >>> s
             OrderedSet([1, 2])
-            
+
         **中文文档**
-        
+
         移除并返回最后添加的元素。
         """
         if not self:
@@ -177,23 +179,23 @@ class OrderedSet(collections.MutableSet):
     def union(*argv):
         """Returns union of sets as a new set. basically it's
         Items are ordered by set1, set2, ...
-        
+
         **中文文档**
-        
+
         求多个有序集合的并集, 按照第一个集合, 第二个, ..., 这样的顺序。
         """
         res = OrderedSet()
         for ods in argv:
             res = res | ods
         return res
-    
+
     @staticmethod
     def intersection(*argv):
         """Returns the intersection of multiple sets.
         Items are ordered by set1, set2, ...
 
         **中文文档**
-        
+
         求多个有序集合的交集, 按照第一个集合, 第二个, ..., 这样的顺序。
         """
         res = OrderedSet(argv[0])
@@ -201,54 +203,57 @@ class OrderedSet(collections.MutableSet):
             res = ods & res
         return res
 
-############
-# Unittest #
-############
 
+def test_add_pop_and_discard():
+    """test, add(item), pop(last=True/False), discard(item) method
+    """
+    s = OrderedSet("abcde")
+    assert list(s) == ["a", "b", "c", "d", "e"]
+
+    s.pop()
+    assert list(s) == ["a", "b", "c", "d"]
+
+    s.pop(last=False)
+    assert list(s) == ["b", "c", "d"]
+
+    s.discard("c")
+    assert list(s) == ["b", "d"]
+
+
+def test_union_intersect_and_difference():
+    """test union, intersect, difference operation
+    """
+    s = OrderedSet("abracadaba")  # {"a", "b", "r", "c", "d"}
+    t = OrderedSet("simcsalabim")  # {"s", "i", "m", "c", "a", "l", "b"}
+
+    # s union t
+    assert list(s | t) == ["a", "b", "r", "c", "d", "s", "i", "m", "l"]
+
+    # s intersect t
+    assert list(s & t) == ["c", "a", "b"]
+
+    # s different t
+    assert list(s - t) == ["r", "d"]
+
+
+def test_staticmethod():
+    """test customized batch union and intersect static method
+    """
+    r = OrderedSet("buag")  # {"b", "u", "a", "g"}
+    s = OrderedSet("abracadaba")  # {"a", "b", "r", "c", "d"}
+    # {"s", "i", "m", "c", "a", "l", "b"}
+    t = OrderedSet("simcsalabim")
+
+    # r union s union t
+    expected = ["b", "u", "a", "g", "r", "c", "d", "s", "i", "m", "l"]
+    assert list(OrderedSet.union(r, s, t)) == expected
+
+    # r intsect s and t
+    assert list(OrderedSet.intersection(r, s, t)) == ["b", "a"]
+
+
+#--- Unittest ---
 if __name__ == "__main__":
-    import unittest
-
-    class OrderedSetUnittest(unittest.TestCase):
-        def test_add_pop_and_discard(self):
-            """test, add(item), pop(last=True/False), discard(item) method
-            """
-            s = OrderedSet("abcde")
-            self.assertListEqual(list(s), ["a", "b", "c", "d", "e"])
-            s.pop()
-            self.assertListEqual(list(s), ["a", "b", "c", "d"])
-            s.pop(last=False)
-            self.assertListEqual(list(s), ["b", "c", "d"])
-            s.discard("c")
-            self.assertListEqual(list(s), ["b", "d"])
-        
-        def test_union_intersect_and_difference(self):
-            """test union, intersect, difference operation
-            """
-            s = OrderedSet("abracadaba") # {"a", "b", "r", "c", "d"}
-            t = OrderedSet("simcsalabim") # {"s", "i", "m", "c", "a", "l", "b"}
-            
-            self.assertListEqual(list(s | t), # s union t
-                ["a", "b", "r", "c", "d", "s", "i", "m", "l"])
-            
-            self.assertListEqual(list(s & t), # s intersect t
-                ["c", "a", "b"])
-            
-            self.assertListEqual(list(s - t), # s different t
-                ["r", "d"])
-        
-        def test_staticmethod(self):
-            """test customized batch union and intersect static method
-            """
-            r = OrderedSet("buag") # {"b", "u", "a", "g"}
-            s = OrderedSet("abracadaba") # {"a", "b", "r", "c", "d"}
-            t = OrderedSet("simcsalabim") # {"s", "i", "m", "c", "a", "l", "b"}
-            
-            # r union s union t
-            self.assertListEqual(list(OrderedSet.union(r, s, t)), 
-                ["b", "u", "a", "g", "r", "c", "d", "s", "i", "m", "l"])
-            
-            # r intsect s and t
-            self.assertListEqual(list(OrderedSet.intersection(r, s, t)),
-                ["b", "a"])
-            
-    unittest.main()
+    test_add_pop_and_discard()
+    test_union_intersect_and_difference()
+    test_staticmethod()

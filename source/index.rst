@@ -2,13 +2,14 @@
 
 
 Table of Content
---------------------------------------------------------------------------------
+================
 
 .. toctree::
    :maxdepth: 2
 
-    Quick Start <quickstart>
-    About <about>
+    Quick Start <quickstart.rst>
+
+.. include:: about.rst
 
 
 Indices and tables

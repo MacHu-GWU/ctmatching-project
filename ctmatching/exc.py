@@ -5,8 +5,12 @@
 exceptions
 """
 
+
 class InputError(Exception):
     pass
 
+
 class NotEnoughControlSampleError(Exception):
+    """
+    """
     pass
