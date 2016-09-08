@@ -31,8 +31,8 @@ def load_re78():
         >>> len(treat)
         185
     """
-    abspath = os.path.join(__file__.replace("dataset.py", "testdata"), "re78.txt")
-
+    abspath = os.path.join(os.path.dirname(__file__), "testdata", "re78.txt")
+    
     with open(abspath, "rb") as f:
         lines = f.read().decode("utf-8").split("\n")
 

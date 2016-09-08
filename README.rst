@@ -1,3 +1,5 @@
+.. image:: https://travis-ci.org/MacHu-GWU/ctmatching-project.svg?branch=master
+
 .. image:: https://img.shields.io/pypi/v/ctmatching.svg
 
 .. image:: https://img.shields.io/pypi/l/ctmatching.svg
